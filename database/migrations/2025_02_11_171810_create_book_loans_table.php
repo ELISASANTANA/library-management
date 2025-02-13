@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('user_id');
-            $table->integer('status');
+            $table->unsignedBigInteger('book_status_id');
+            $table->date('due_date');
             $table->timestamps();
 
             $table->foreign('book_id')->references('id')->on('books');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('book_status_id')->references('id')->on('book_statuses');
+
         });
     }
 

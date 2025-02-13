@@ -46,12 +46,12 @@ class UserController extends Controller
 
             } catch (\Throwable $e) {
 
-                return redirect()->withErrors($e->getMessage())->withInput(); 
+                return back()->withErrors($e->getMessage()); 
  
             }
         }
         
-        return redirect()->withErrors($validator->errors()->first())->withInput(); 
+        return back()->response($validator->errors()->first()); 
     }
 
     public function edit($id) {
@@ -84,10 +84,10 @@ class UserController extends Controller
 
             }
 
-            return redirect()->withErrors('Usuário não encontrado')->withInput();
+            return back()->withErrors('Usuário não encontrado');
         }
 
-        return redirect()->withErrors('Dados Inválidos.')->withInput(); 
+        return back()->withErrors($validator->errors()->first()); 
     }
 
     private function save(User $user, Request $request) {
@@ -114,17 +114,15 @@ class UserController extends Controller
                 return redirect('users')->withSuccess('Usuário deletado com sucesso!');
             }
 
-            return redirect()->withErrors('Usuário não encontrado')->withInput(); 
+            return back()->withErrors('Usuário não encontrado')->withInput(); 
         }
     }
 
     private function validation(Request $request) {
 
-        $uniqueEmailRule = new Unique(User::class, 'email');
-
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string'],
-            'email' => ['required', 'email', $uniqueEmailRule]
+            'email' => ['required', 'email']
         ]);
 
         $validator->sometimes('id', 'required|numeric', function ($request) {

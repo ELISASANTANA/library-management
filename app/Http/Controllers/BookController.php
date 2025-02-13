@@ -17,7 +17,7 @@ class BookController extends Controller
      */
     public function index() {
 
-        $books = Book::with('genre')->get();
+        $books = Book::with('genre', 'loan.status')->get();
 
         return view('pages.books.index', [
             'books' => $books
@@ -64,12 +64,12 @@ class BookController extends Controller
 
             } catch (\Throwable $e) {
 
-                return redirect()->withErrors($e->getMessage())->withInput(); 
+                return back()->withErrors($e->getMessage())->withInput(); 
  
             }
         }
         
-        return redirect()->withInput(); 
+        return back()->withErrors($validator->errors()->first())->withInput(); 
 
     }
 
@@ -117,10 +117,10 @@ class BookController extends Controller
 
             }
 
-            return redirect()->withErrors('Usuário não encontrado')->withInput();
+            return back()->withErrors('Usuário não encontrado')->withInput();
         }
 
-        return redirect()->withErrors('Dados Inválidos.')->withInput(); 
+        return back()->withErrors('Dados Inválidos.')->withInput(); 
         
     }
 
@@ -129,7 +129,6 @@ class BookController extends Controller
         $book->name = $request->name;
         $book->author = $request->author;
         $book->genre_id = $request->genre_id;
-        $book->is_available = true;
 
         $book->save();
     }
@@ -139,16 +138,24 @@ class BookController extends Controller
 
         if ($id && is_numeric($id)) {
 
-            $book = Book::findOrFail($id)->first();
+            try {
 
-            if ($book) {
+                $book = Book::findById($id)->first();
 
-                $book->delete();
+                if ($book) {
+
+                    $book->delete();
+                    
+                    return redirect('books')->withSuccess('Usuário deletado com sucesso!');
+                }
+
+                return back()->withErrors('Usuário não encontrado')->withInput(); 
+
+            } catch (\Throwable $th) {
+
+                return back()->withErrors('Não foi possivel excluir.');
                 
-                return redirect('books')->withSuccess('Usuário deletado com sucesso!');
             }
-
-            return redirect()->withErrors('Usuário não encontrado')->withInput(); 
         }
 
     }

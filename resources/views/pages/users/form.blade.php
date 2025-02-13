@@ -6,7 +6,7 @@
 
     <x-alert></x-alert>
 
-    <div class="w-full max-w-xs">
+    <div class="w-full flex justify-center">
 
         @php
             $isEdit = !!$user->id;
@@ -37,12 +37,12 @@
             </div>
             <div class="flex items-center justify-between">
                 <button
-                    class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    class="bg-slate-400 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button">
                     <a href="{{ route('users.index') }}">Voltar</a>
                 </button>
                 <button
-                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    class="bg-cyan-950 hover:bg-cyan-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="submit">
                     Cadastrar
                 </button>

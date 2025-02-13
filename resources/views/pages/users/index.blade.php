@@ -20,10 +20,10 @@
         <tbody>
             @foreach ($users as $user)
                 <tr>
-                    <td class="border px-4 py-2">{{ $user->id }}</td>
-                    <td class="border px-4 py-2">{{ $user->name }}</td>
-                    <td class="border px-4 py-2">{{ $user->email }}</td>
-                    <td class="border px-4 py-2">
+                    <td class="border px-4 py-2 text-center">{{ $user->id }}</td>
+                    <td class="border px-4 py-2 text-center">{{ $user->name }}</td>
+                    <td class="border px-4 py-2 text-center">{{ $user->email }}</td>
+                    <td class="border px-4 py-2 text-center">
                         <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-2 rounded inline-flex items-center" title="Editar">
                             <a href="{{ route('users.edit', $user->id) }}"><img src="{{ asset('assets/icons/edit.svg') }}" class="w-4"></a>
                         </button>
