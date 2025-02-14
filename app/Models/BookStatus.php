@@ -9,9 +9,5 @@ class BookStatus extends Model
 
     public $timestamps = false;
 
-    // function loan() {
-    //     return $this->hasOne(BookLoan::class);
-    // }
-
 
 }

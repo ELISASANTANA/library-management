@@ -124,6 +124,13 @@ class BookController extends Controller
         
     }
 
+    /**
+     * Salva os dados
+     *
+     * @param Book $book
+     * @param Request $request
+     * @return void
+     */
     private function save(Book $book, Request $request) {
 
         $book->name = $request->name;
@@ -134,6 +141,12 @@ class BookController extends Controller
     }
 
 
+    /**
+     * Excluir dado do banco
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function destroy($id) {
 
         if ($id && is_numeric($id)) {
@@ -160,6 +173,12 @@ class BookController extends Controller
 
     }
 
+    /**
+     * Validação dos dados inputados
+     *
+     * @param Request $request
+     * @return
+     */
     private function validation(Request $request) {
 
         $validator = Validator::make($request->all(), [

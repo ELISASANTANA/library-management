@@ -10,6 +10,11 @@ use Illuminate\Validation\Rules\Unique;
 class UserController extends Controller
 {
 
+    /**
+     * Indexa lista de usuários na view
+     *
+     * @return void
+     */
     public function index() {
 
         $users = User::all();
@@ -20,6 +25,11 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Redireciona ao formulário de cadastro
+     *
+     * @return void
+     */
     public function create() {
 
         $user = new User();
@@ -30,6 +40,12 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Persite os dados do cadastro no banco de dados
+     *
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request) {
 
         $validator = $this->validation($request);
@@ -54,6 +70,12 @@ class UserController extends Controller
         return back()->response($validator->errors()->first()); 
     }
 
+    /**
+     * Redireciona ao formulário de edição
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function edit($id) {
         
         if ($id && is_numeric($id)) {
@@ -67,6 +89,13 @@ class UserController extends Controller
 
     }
 
+    /**
+     * Atualiza as informações no banco
+     *
+     * @param Request $request
+     * @param [type] $id
+     * @return void
+     */
     public function update(Request $request, $id) {
         
         $request->merge(['id' => $id]);
@@ -90,6 +119,13 @@ class UserController extends Controller
         return back()->withErrors($validator->errors()->first()); 
     }
 
+    /**
+     * Salva os dados
+     *
+     * @param User $user
+     * @param Request $request
+     * @return void
+     */
     private function save(User $user, Request $request) {
 
         $user->name = $request->name;
@@ -101,6 +137,12 @@ class UserController extends Controller
     }
 
 
+    /**
+     * Excluir dado do banco
+     *
+     * @param [type] $id
+     * @return void
+     */
     public function destroy($id) {
 
         if ($id && is_numeric($id)) {
@@ -118,6 +160,12 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Validação dos dados inputados
+     *
+     * @param Request $request
+     * @return
+     */
     private function validation(Request $request) {
 
         $validator = Validator::make($request->all(), [

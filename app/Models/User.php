@@ -12,6 +12,13 @@ class User extends Authenticatable
 
     use HasFactory;
 
+    /**
+     * Busca o registro de acordo com id 
+     *
+     * @param [type] $query
+     * @param [type] $id
+     * @return void
+     */
     public function scopeFindById($query, $id) {
 
         $query->where('id', $id);
