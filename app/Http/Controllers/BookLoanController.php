@@ -36,7 +36,6 @@ class BookLoanController extends Controller
         $users = User::all();
         $books = Book::available()->get();
 
-        dd($books);
 
         return view('pages.loans.form', compact('users', 'books', 'bookLoan'));
 

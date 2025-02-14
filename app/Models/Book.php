@@ -27,8 +27,12 @@ class Book extends Model
     function scopeAvailable($query) {
 
         $query->leftJoin('book_loans as bl', 'bl.book_id', 'books.id')
-            ->where('bl.book_status_id', BookStatusEnum::RETURNED)
-            ->orWhereNull('bl.book_id');
+            ->where(function ($q) {
+                $q->where('bl.book_status_id', BookStatusEnum::RETURNED)
+                ->orWhereNull('bl.id');
+            });
+
+        $query->select('books.*');
 
     }
 }
