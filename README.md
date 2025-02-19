@@ -44,8 +44,9 @@ DB_PORT=3306
 DB_DATABASE=seu_banco
 DB_USERNAME=seu_usuario
 DB_PASSWORD=sua_senha
-```
 
+SESSION_DRIVER=file
+```
 3. Gere a chave da aplicação:
 ```bash
 php artisan key:generate
